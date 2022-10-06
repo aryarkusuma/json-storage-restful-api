@@ -4,7 +4,7 @@ export async function handler(event, context) {
     console.log("The functions started")
     let data = await readData(event)
     if(data == null){
-      data = JSON.stringify{massage: 'Data Not Found'}
+      data = JSON.stringify({massage: 'Data Not Found'});
     }
     return {
       statusCode: 200,
