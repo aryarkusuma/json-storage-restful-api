@@ -48,6 +48,6 @@ async function jsonSaver(event) {
     headers : {
       "Content-type" : "application/json",
     },
-    body: JSON.stringify({message: retJsonId}), //return key id
+    body: JSON.stringify({storedId: randString, message: retJsonId}), //return key id
   }
 }
