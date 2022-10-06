@@ -1,7 +1,7 @@
 # json-storage-restful-api
 
 ### ***Click this to redirect you to the website***
-[![Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fjson.projectxi.my.id)%2F)](https://json.projectxi.my.id)
+[![Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fiwebp.projectxi.my.id%2F)](https://json.projectxi.my.id/)
 
 ### 
 ### Endpoint
