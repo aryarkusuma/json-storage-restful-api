@@ -1,0 +1,53 @@
+const fetch = require("node-fetch");
+const sharp = require("sharp");
+
+export async function handler(event, context) {
+  try {
+    return await imgconv(event);
+  }
+  catch (error) {
+
+    console.log(error);
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to proceed' }),
+    };
+  }
+};
+
+async function imgconv(event) {
+
+  const query = event.queryStringParameters;
+  const url = query.url //image source
+  //fetch data and the metadata
+  const response = await fetch(url);
+  const imageBuff = await response.buffer()
+  const metadata = await sharp(imageBuff).metadata();
+
+  //check imageconverter user input for img output format
+  //const imgFormat = (typeof query.format) == 'undefined'?
+  //       metadata.format:query.format.toLowerCase();
+
+  //checkin img resulution from img metadata/user input
+  const width = ((typeof query.width) == 'undefined' ?
+    metadata.width : parseInt(query.width));
+
+  const height = ((typeof query.height) == 'undefined' ?
+    metadata.height : parseInt(query.height));
+
+  //proceed to convert
+  const data = await sharp(imageBuff).withMetadata().
+    resize({
+      width: width,
+      height: height, fit: 'fill'
+    })
+    .webp({ effort: 0, quality: 65 })
+    .toBuffer();
+
+  return {
+    statusCode: 200,
+    body: data.toString('base64'),
+    isBase64Encoded: true
+  }
+}
